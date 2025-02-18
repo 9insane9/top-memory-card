@@ -12,3 +12,18 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-container {
+  display: flex;
+}
+
+.card {
+  height: 200px;
+  width: 100px;
+  border: 1px solid green;
+}
