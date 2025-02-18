@@ -3,12 +3,12 @@ import Card from "./Card";
 import { useState } from "react";
 //card counter, change displayed amount depending on difficulty also?
 export default function Game({ difficulty, backToMenuFn }) {
-    const [cardList, setCardList] = useState(cards.slice(0, difficulty - 1))
+    const [cardList, setCardList] = useState(cards.slice(0, difficulty.cardAmount - 1))
     const [cardsClicked, setCardsClicked] = useState([])
     const [highScore, setHighScore] = useState(0)
     const [currentScore, setCurrentScore] = useState(0)
 
-    function randomlyOrderedCards(playTurn) {
+    function randomCards(playTurn) {
         const cardEls = cardList.map((card) => {
             return (
                 <Card 
@@ -20,10 +20,10 @@ export default function Game({ difficulty, backToMenuFn }) {
             )
         })
 
-        const allRandomlyOrderedCards = cardEls.sort(() => Math.random() - 0.5)
-        const firstSixRandomCards = allRandomlyOrderedCards.slice(0, 6)
+        const allCardsRandomized = cardEls.sort(() => Math.random() - 0.5)
+        const cardsToDisplay = allCardsRandomized.slice(0, difficulty.displayAmount)
 
-        return firstSixRandomCards
+        return cardsToDisplay
     }
 
     function playTurn(characterName) {
@@ -38,7 +38,7 @@ export default function Game({ difficulty, backToMenuFn }) {
         if (!cardsClicked.includes(characterName)) {
             setCardsClicked((prev) => [...prev, characterName])
             setCurrentScore((prev) => prev + 1)
-            console.log("Good yob")
+            console.log("Goob yob")
         }
     }
 
@@ -57,8 +57,9 @@ export default function Game({ difficulty, backToMenuFn }) {
                 <p className="current-score">Current: {currentScore}</p>
             </div>
             <div className="card-container">
-                {randomlyOrderedCards(playTurn)}
+                {randomCards(playTurn)}
             </div>
+            <div className="counter">{`${cardsClicked.length} / ${difficulty.cardAmount}`}</div>
         </div>
     )
 }

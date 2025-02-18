@@ -11,16 +11,23 @@ function App() {
   }
 
   function startGame(difficulty) {
-    setDifficulty(difficulty)
+    const modes = {
+      easy: { cardAmount: 10, displayAmount: 4 },
+      medium: { cardAmount: 15, displayAmount: 6 },
+      hard: { cardAmount: 20, displayAmount: 8 }
+    }
+
+    setDifficulty(modes[difficulty])
     setGameStarted(true)
-    console.log(`difficulty (card amount) set to ${difficulty}`)
+
+    console.log(`difficulty set to ${difficulty}`)
   }
 
   const menu = <div className="menu">
                   <div className="difficulty">
-                    <button onClick={() => startGame(10)}>Easy</button>
-                    <button onClick={() => startGame(15)}>Medium</button>
-                    <button onClick={() => startGame(20)}>Hard</button>
+                    <button onClick={() => startGame("easy")}>Easy</button>
+                    <button onClick={() => startGame("medium")}>Medium</button>
+                    <button onClick={() => startGame("hard")}>Hard</button>
                   </div>
                 </div>
 
