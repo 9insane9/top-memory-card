@@ -2,8 +2,7 @@ import Tilt from "react-parallax-tilt";
 import { useState, useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 
-export default function Card({ src, alt, playTurnFn }) {
-  const [isFlipped, setIsFlipped] = useState(true)
+export default function Card({ src, alt, playTurnFn, isFlipped }) {
   
   const flipIn = keyframes`
     from {
@@ -26,7 +25,7 @@ export default function Card({ src, alt, playTurnFn }) {
         const CardFront = styled.div`
             display: inline-block;
             animation-timing-function: cubic-bezier(0.32, 1.6, 0.44, 1);
-            animation: ${isFlipped ? flipIn : flipOut} 1s;
+            animation: ${({ isFlipped }) => (isFlipped ? flipIn : flipOut)} 1s;
             transform-origin: cente
             transform: perspective(1000px) rotateY(0deg);
             backface-visibility: hidden;
@@ -37,7 +36,7 @@ export default function Card({ src, alt, playTurnFn }) {
             transform: perspective(1000px) rotateY(-180deg);
             display: inline-block;
             animation-timing-function: cubic-bezier(0.32, 1.6, 0.44, 1);
-            animation: ${!isFlipped ? flipIn : flipOut} 1s;
+            animation: ${({ isFlipped }) => (isFlipped ? flipIn : flipOut)} 1s;
             transform-origin: center;
             backface-visibility: hidden;
             transform-style: preserve-3d;
@@ -45,13 +44,19 @@ export default function Card({ src, alt, playTurnFn }) {
 
 
 
-  function flipAndPlayTurn() {
-    setIsFlipped(false)
+  // function flipAndPlayTurn() {
+  //   setIsFlipped(false)
 
-    setTimeout(() => {
-      setIsFlipped(true)
+  //   setTimeout(() => {
+  //     setIsFlipped(true)
+  //     playTurnFn(alt)
+  //   }, 1000)    
+  // }
+
+  function flipAndPlayTurn() {
+
       playTurnFn(alt)
-    }, 1000)    
+  
   }
 
   return (
@@ -63,13 +68,13 @@ export default function Card({ src, alt, playTurnFn }) {
       glareBorderRadius="10px"
     >
       <div className="card" onClick={() => flipAndPlayTurn()}>
-        <CardFront className="card-front">
+        <CardFront className="card-front" isFlipped={isFlipped}>
           <div className="img-wrapper">
             <img className="card-img" src={src} alt={alt} />
           </div>
           <h2 className="card-title">{alt}</h2>
         </CardFront>
-        <CardBack className="card-back"></CardBack>
+        <CardBack className="card-back" isFlipped={isFlipped}></CardBack>
       </div>
     </Tilt>
   );
