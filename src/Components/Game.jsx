@@ -5,6 +5,9 @@ import { useState } from "react";
 export default function Game({ difficulty, backToMenuFn }) {
     const [cardList, setCardList] = useState(cards.slice(0, difficulty.cardAmount - 1))
     const [cardsClicked, setCardsClicked] = useState([])
+    const [isFlipped, setIsFlipped] = useState(true)
+    //  const [isAnimating, setIsAnimating] = useState(false)
+
     const [highScore, setHighScore] = useState(0)
     const [currentScore, setCurrentScore] = useState(0)
 
@@ -16,6 +19,7 @@ export default function Game({ difficulty, backToMenuFn }) {
                     alt={card.alt}
                     src={card.src}
                     playTurnFn={playTurn}
+                    isFlipped={isFlipped}
                 />
             )
         })
@@ -27,20 +31,25 @@ export default function Game({ difficulty, backToMenuFn }) {
     }
 
     function playTurn(characterName) {
+        setIsFlipped(false)
 
-        if (cardsClicked.includes(characterName)) {
-            console.log("Game Over!")
+        setTimeout(() => {
+            setIsFlipped(true)
 
-            currentScore > highScore ? setHighScore(currentScore) : null
-            setCurrentScore(0)
-            setCardsClicked([])
-        }
-
-        if (!cardsClicked.includes(characterName)) {
-            setCardsClicked((prev) => [...prev, characterName])
-            setCurrentScore((prev) => prev + 1)
-            console.log("Goob yob")
-        }
+            if (cardsClicked.includes(characterName)) {
+                console.log("Game Over!")
+    
+                currentScore > highScore ? setHighScore(currentScore) : null
+                setCurrentScore(0)
+                setCardsClicked([])
+            }
+    
+            if (!cardsClicked.includes(characterName)) {
+                setCardsClicked((prev) => [...prev, characterName])
+                setCurrentScore((prev) => prev + 1)
+                console.log("Goob yob")
+            }
+        }, 750)
     }
 
     function resetGame() {
