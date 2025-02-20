@@ -1,7 +1,7 @@
 import cards from "../cardData";
 import Card from "./Card";
 import { useState } from "react";
-//card counter, change displayed amount depending on difficulty also?
+
 export default function Game({ difficulty, backToMenuFn }) {
     const [cardList, setCardList] = useState(cards.slice(0, difficulty.cardAmount - 1))
     const [cardsClicked, setCardsClicked] = useState([])
@@ -27,6 +27,7 @@ export default function Game({ difficulty, backToMenuFn }) {
     }
 
     function playTurn(characterName) {
+
         if (cardsClicked.includes(characterName)) {
             console.log("Game Over!")
 
