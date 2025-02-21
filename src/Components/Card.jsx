@@ -29,7 +29,7 @@ export default function Card({ src, alt, playTurnFn, isFlipped }) {
         const CardFront = styled.div`
             display: inline-block;
             animation-timing-function: cubic-bezier(0.05, 2, 0.98, 1);
-            animation: ${({ isFlipped }) => (isFlipped ? flipIn : flipOut)} 0.75s;
+            animation: ${({ isFlipped }) => (isFlipped ? flipIn : flipOut)} 0.65s;
             transform-origin: center;
             transform: perspective(1000px) rotateY(0deg);
             backface-visibility: hidden;
@@ -40,7 +40,7 @@ export default function Card({ src, alt, playTurnFn, isFlipped }) {
             transform: perspective(1000px) rotateY(-180deg);
             display: inline-block;
             animation-timing-function: cubic-bezier(0.05, 2, 0.98, 1);
-            animation: ${({ isFlipped }) => (!isFlipped ? flipIn : flipOut)} 0.75s;
+            animation: ${({ isFlipped }) => (!isFlipped ? flipIn : flipOut)} 0.65s;
             transform-origin: center;
             backface-visibility: hidden;
             transform-style: preserve-3d;
@@ -59,7 +59,7 @@ export default function Card({ src, alt, playTurnFn, isFlipped }) {
           <div className="img-wrapper">
             <img className="card-img" src={src} alt={alt} />
           </div>
-          <h2 className="card-title">{alt}</h2>
+          {/* <h2 className="card-title">{alt}</h2> */}
         </CardFront>
         <CardBack className="card-back" isFlipped={isFlipped}></CardBack>
       </div>

@@ -6,14 +6,15 @@ export default function Game({ difficulty, backToMenuFn }) {
     const [cardList, setCardList] = useState(cards.slice(0, difficulty.cardAmount - 1))
     const [cardsClicked, setCardsClicked] = useState([])
     const [isFlipped, setIsFlipped] = useState(true)
-    //  const [isAnimating, setIsAnimating] = useState(false)
+    const [isClickDisabled, setIsClickDisabled] = useState(false)
+    const [isGameOver, setIsGameOver] = useState(false)
 
     const [highScore, setHighScore] = useState(0)
     const [currentScore, setCurrentScore] = useState(0)
 
     function randomCards(playTurn) {
-        const cardEls = cardList.map((card) => {
-            return (
+        return cardList
+            .map((card) => (
                 <Card 
                     key={card.alt}
                     alt={card.alt}
@@ -21,23 +22,28 @@ export default function Game({ difficulty, backToMenuFn }) {
                     playTurnFn={playTurn}
                     isFlipped={isFlipped}
                 />
-            )
-        })
-
-        const allCardsRandomized = cardEls.sort(() => Math.random() - 0.5)
-        const cardsToDisplay = allCardsRandomized.slice(0, difficulty.displayAmount)
-
-        return cardsToDisplay
+            ))
+            .sort(() => Math.random() - 0.5)
+            .slice(0, difficulty.displayAmount)
     }
 
     function playTurn(characterName) {
+        if (isClickDisabled) return
+        
+        setIsClickDisabled(true)
         setIsFlipped(false)
+
+        setTimeout(() => {
+            setIsClickDisabled(false)
+        }, 650)
 
         setTimeout(() => {
             setIsFlipped(true)
 
             if (cardsClicked.includes(characterName)) {
                 console.log("Game Over!")
+                setIsGameOver(true)
+                setIsClickDisabled(true)
     
                 currentScore > highScore ? setHighScore(currentScore) : null
                 setCurrentScore(0)
@@ -49,26 +55,37 @@ export default function Game({ difficulty, backToMenuFn }) {
                 setCurrentScore((prev) => prev + 1)
                 console.log("Goob yob")
             }
-        }, 750)
+        }, 650)
     }
 
     function resetGame() {
-        setCardList([])
         setCardsClicked([])
         setCurrentScore(0)
+        setIsGameOver(false)
+        setIsClickDisabled(false)
+    }
+
+    function endGame() {
+        setCardList([])
+        resetGame()
         backToMenuFn()
     }
 
     return (
         <div className="game-container">
-            <button className="back-to-menu" onClick={() => resetGame()}>Back to menu</button>
+            <button className="back-to-menu" onClick={() => endGame()}>Back to menu</button>
             <div className="score-container">
                 <p className="high-score">Highscore: {highScore}</p>
                 <p className="current-score">Current: {currentScore}</p>
             </div>
-            <div className="card-container">
+            <div className={`card-container ${isClickDisabled ? "disabled" : ""}`}>
                 {randomCards(playTurn)}
             </div>
+            {isGameOver && 
+                <div className="game-over">
+                    <button onClick={resetGame}>Restart</button>
+                </div>
+            }
             <div className="counter">{`${cardsClicked.length} / ${difficulty.cardAmount}`}</div>
         </div>
     )
