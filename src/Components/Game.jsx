@@ -73,20 +73,20 @@ export default function Game({ difficulty, backToMenuFn }) {
 
     return (
         <div className="game-container">
-            <button className="back-to-menu" onClick={() => endGame()}>Back to menu</button>
-            <div className="score-container">
-                <p className="high-score">Highscore: {highScore}</p>
-                <p className="current-score">Current: {currentScore}</p>
+            <div className="top-bar">
+                <button className="back-to-menu" onClick={() => endGame()}>↵ Back</button>
+                <div className="counter">{`${cardsClicked.length} / ${difficulty.cardAmount}`}</div>
+                <p className="high-score">Best: {highScore}</p>
             </div>
             <div className={`card-container ${isClickDisabled ? "disabled" : ""}`}>
                 {randomCards(playTurn)}
             </div>
             {isGameOver && 
                 <div className="game-over">
-                    <button onClick={resetGame}>Restart</button>
+                    <h2>Game over!</h2>
+                    <button className="restart" onClick={resetGame}>Restart</button>
                 </div>
             }
-            <div className="counter">{`${cardsClicked.length} / ${difficulty.cardAmount}`}</div>
         </div>
     )
 }

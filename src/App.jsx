@@ -1,5 +1,6 @@
 import { useState } from "react"
 import Game from "./Components/Game"
+import Tilt from "react-parallax-tilt";
 
 function App() {
   const [gameStarted, setGameStarted] = useState(false)
@@ -12,9 +13,9 @@ function App() {
 
   function startGame(difficulty) {
     const modes = {
-      easy: { cardAmount: 10, displayAmount: 4 },
+      easy: { cardAmount: 10, displayAmount: 6 },
       medium: { cardAmount: 15, displayAmount: 6 },
-      hard: { cardAmount: 20, displayAmount: 8 }
+      hard: { cardAmount: 20, displayAmount: 6 }
     }
 
     setDifficulty(modes[difficulty])
@@ -23,14 +24,12 @@ function App() {
     console.log(`difficulty set to ${difficulty}`)
   }
 
-  const menu = <div className="menu">
-                  <div className="difficulty">
-                    <button onClick={() => startGame("easy")}>Easy</button>
-                    <button onClick={() => startGame("medium")}>Medium</button>
-                    <button onClick={() => startGame("hard")}>Hard</button>
-                  </div>
+const menu =    <div className="difficulty">
+                  <h1 className="game-title">Radlands Memory Game</h1>
+                  <Tilt perspective={"1000px"}><button onClick={() => startGame("easy")}>Easy</button></Tilt>
+                  <Tilt perspective={"1000px"}><button onClick={() => startGame("medium")}>Medium</button></Tilt>
+                  <Tilt perspective={"1000px"}><button onClick={() => startGame("hard")}>Hard</button></Tilt>
                 </div>
-
 
   return (
     <>
