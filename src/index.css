@@ -145,31 +145,18 @@ body {
 }
 
 .card-container {
-  /* margin-top: 50px; */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   max-width: 800px;
   gap: 20px;
   border: 1px solid transparent;
-  /* height: 100%; */
 }
 
 /* game over */
 .card-container.disabled {
   pointer-events: none;
 }
-
-/* .card-container.disabled::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3));
-  animation: gradient-move 3s infinite linear;
-} */
 
 @keyframes gradient-move {
   0% {
