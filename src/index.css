@@ -40,7 +40,7 @@ body {
   box-sizing: border-box;
   max-width: 950px;
   /* padding: 10px 20px; */
-  border: 1px solid red;
+  border: 1px solid transparent;
 }
 
 .app-container {
@@ -52,6 +52,18 @@ body {
   width: 100%;
   /* height: 100%; */
   max-width: 950px;
+  background: url('https://cdnb.artstation.com/p/assets/images/images/034/243/877/large/damien-mammoliti-randlands-bg-damien-desert-10-04.jpg?1611778771');
+  background-position: center;
+  background-repeat: none;
+  background-size: cover;
+}
+
+.app-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8));
+  pointer-events: none;
 }
 
 
@@ -61,7 +73,7 @@ body {
   gap: 20px;
   flex-direction: column;
   align-items: center;
-  /* border: 1px solid blue; */
+  border: 1px solid transparent;
   max-width: 500px;
 }
 
@@ -74,7 +86,7 @@ body {
   font-size: 1.5rem;
   color: white;
   font-family: 'Orbitron', serif;
-  filter: drop-shadow(1px 1px 1px white);
+  filter: drop-shadow(1px 1px 1px rgb(255, 0, 212));
 }
 
 .game-title {
@@ -83,6 +95,8 @@ body {
   font-size: 2.2rem;
   text-align: center;
   padding: 0px 20px;
+  z-index: 1;
+  filter: drop-shadow(1px 1px 1px rgb(255, 0, 212));
 }
 
 .difficulty button:hover {
@@ -94,7 +108,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
-  border: 1px solid salmon;
+  border: 1px solid transparent;
 }
 
 .top-bar {
@@ -102,6 +116,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 5px 20px;
+  filter: drop-shadow(1px 1px 1px rgb(255, 0, 212));
 }
 
 .back-to-menu {
@@ -136,7 +151,7 @@ body {
   justify-content: center;
   max-width: 800px;
   gap: 20px;
-  border: 1px solid red;
+  border: 1px solid transparent;
   /* height: 100%; */
 }
 
@@ -145,7 +160,7 @@ body {
   pointer-events: none;
 }
 
-.card-container.disabled::after {
+/* .card-container.disabled::after {
   content: '';
   position: absolute;
   top: 0;
@@ -154,7 +169,7 @@ body {
   bottom: 0;
   background: linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3));
   animation: gradient-move 3s infinite linear;
-}
+} */
 
 @keyframes gradient-move {
   0% {
@@ -178,15 +193,17 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  /* border: 1px solid mediumspringgreen; */
+  border: 1px solid transparent;
   font-family: 'Orbitron', serif;
-  /* width: 90%;
-  height: 80%; */
+  width: clamp(250px, 100vw, 950px);
+  height: 83vh;
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
 }
 
 .game-over h2 {
   display: inline-block;
   animation: scaleOscillation 1s ease-in-out infinite;
+  filter: drop-shadow(1px 1px 1px rgb(255, 0, 212));
 }
 
 @keyframes scaleOscillation {
@@ -277,6 +294,13 @@ body {
   .card-container {
     padding-top: 40px;
     padding-bottom: 40px;
+  }
+}
+
+@media (max-width: 500px) {
+  .game-over {
+    height: 88vh;
+    top: 400px;
   }
 }
 
